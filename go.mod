@@ -2,8 +2,6 @@ module github.com/adnsv/go-db3
 
 go 1.19
 
-retract [v0.1.0-0.3.1]
-
 require (
 	golang.org/x/exp v0.0.0-20221111094246-ab4555d3164f
 	gopkg.in/yaml.v3 v3.0.1
