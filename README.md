@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/adnsv/go-db3?status.svg)](https://godoc.org/github.com/adnsv/go-db3)
 
 
-Libraries and utilities for managing SQLite databases in GO
+Libraries for managing SQLite databases in GO
 
 Features:
 
