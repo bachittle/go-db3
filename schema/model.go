@@ -1,8 +1,6 @@
 package schema
 
 import (
-	"fmt"
-
 	"gopkg.in/yaml.v3"
 )
 
@@ -103,8 +101,25 @@ func (c *Column) MarshalYAML() (any, error) {
 
 // UnmarshalYAML fixes issue where Literal is not unmarshalled correctly.
 func (c *Column) UnmarshalYAML(node *yaml.Node) error {
-	fmt.Println("!!! testing unmarshal")
-	return node.Decode(c)
+	// iterate over all fields and unmarshal them
+	for i := 0; i < len(node.Content); i += 2 {
+		key := node.Content[i].Value
+		value := node.Content[i+1]
+		switch key {
+		case "name":
+			c.Name = value.Value
+		case "type":
+			c.Type = ColumnType(value.Value)
+		case "nullable":
+			c.Nullable = value.Value == "true"
+		case "default":
+			// c.Default = Literal(value.Value)
+			c.Default = nil // TODO: fix this
+		case "comment":
+			c.Comment = value.Value
+		}
+	}
+	return nil
 }
 
 func (i *Index) MarshalYAML() (any, error) {
