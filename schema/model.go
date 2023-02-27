@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"fmt"
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -101,6 +103,7 @@ func (c *Column) MarshalYAML() (any, error) {
 
 // UnmarshalYAML fixes issue where Literal is not unmarshalled correctly.
 func (c *Column) UnmarshalYAML(node *yaml.Node) error {
+	fmt.Println("!!! testing unmarshal")
 	return node.Decode(c)
 }
 
