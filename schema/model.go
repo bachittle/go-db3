@@ -99,6 +99,11 @@ func (c *Column) MarshalYAML() (any, error) {
 	return &n, nil
 }
 
+// UnmarshalYAML fixes issue where Literal is not unmarshalled correctly.
+func (c *Column) UnmarshalYAML(node *yaml.Node) error {
+	return node.Decode(c)
+}
+
 func (i *Index) MarshalYAML() (any, error) {
 	// get Indices to appear with flow style
 	type flat Index
