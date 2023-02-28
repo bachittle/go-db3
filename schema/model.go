@@ -113,8 +113,8 @@ func (c *Column) UnmarshalYAML(node *yaml.Node) error {
 		case "nullable":
 			c.Nullable = value.Value == "true"
 		case "default":
-			// c.Default = Literal(value.Value)
-			c.Default = nil // TODO: fix this
+			// this fixes issue where Literal is not unmarshalled correctly
+			c.Default = parseLiteral(value.Value)
 		case "comment":
 			c.Comment = value.Value
 		}
