@@ -99,6 +99,29 @@ func (c *Column) MarshalYAML() (any, error) {
 	return &n, nil
 }
 
+// UnmarshalYAML fixes issue where Literal is not unmarshalled correctly.
+func (c *Column) UnmarshalYAML(node *yaml.Node) error {
+	// iterate over all fields and unmarshal them
+	for i := 0; i < len(node.Content); i += 2 {
+		key := node.Content[i].Value
+		value := node.Content[i+1]
+		switch key {
+		case "name":
+			c.Name = value.Value
+		case "type":
+			c.Type = ColumnType(value.Value)
+		case "nullable":
+			c.Nullable = value.Value == "true"
+		case "default":
+			// this fixes issue where Literal is not unmarshalled correctly
+			c.Default = parseLiteral(value.Value)
+		case "comment":
+			c.Comment = value.Value
+		}
+	}
+	return nil
+}
+
 func (i *Index) MarshalYAML() (any, error) {
 	// get Indices to appear with flow style
 	type flat Index
