@@ -1,4 +1,4 @@
-module github.com/adnsv/go-db3
+module github.com/bachittle/go-db3
 
 go 1.19
 
