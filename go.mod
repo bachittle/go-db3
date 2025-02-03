@@ -1,4 +1,4 @@
-module github.com/bachittle/go-db3
+module github.com/tessonics/go-db3
 
 go 1.19
 
